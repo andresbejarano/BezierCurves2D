@@ -5,8 +5,8 @@
   <img src="https://github.com/andresbejarano/beziercurves2d/blob/master/images/img3.png" width="200" />
 </div>
 
-# 2D Bezier Curves
-A simple project for implementing 2D Bezier Curves and related concepts.
+# Fundamental 2D Bezier Curves
+A simple project for implementing degree-n 2D Bezier Curves and related concepts.
 * It is built using C++.
 * Rendering is performed using OpenGL, shaders, gl3w and glfw3.
 * User interface is implemented using [imgui](https://github.com/ocornut/imgui).
@@ -19,3 +19,6 @@ Related concepts implemented in the project include:
 * Remapping the parameterization range from 0-1 to any x-y.
 * Extending the curve for t<0 and t>1.
 * Curve subdivision at given parameter t (generating two independent Bezier Curves).
+
+## Notes
+The current implementation can be immediately adapted for 3D Bezier Curves. Currently, all Z-coordinates are set to 0.0.
