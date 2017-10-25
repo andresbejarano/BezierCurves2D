@@ -2,6 +2,8 @@
 
 /*
 The main function
+@param int argc
+@param char ** argv
 */
 int main(int argc, char ** argv)
 {
