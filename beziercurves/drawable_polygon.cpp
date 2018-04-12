@@ -62,7 +62,7 @@ void DrawablePolygon::DefineGeometry(std::vector<Point*>* points)
 	}
 
 	// Generate the VAO (if it hasn't yet)
-	if (_vao == -1)
+	if ((int)_vao == -1)
 	{
 		glGenVertexArrays(1, &_vao);
 	}
@@ -71,7 +71,7 @@ void DrawablePolygon::DefineGeometry(std::vector<Point*>* points)
 	glBindVertexArray(_vao);
 
 	// Generate the VBO (if it hasn't yet)
-	if (_vbo == -1)
+	if ((int)_vbo == -1)
 	{
 		glGenBuffers(1, &_vbo);
 	}
@@ -81,7 +81,7 @@ void DrawablePolygon::DefineGeometry(std::vector<Point*>* points)
 	glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(GLfloat), vertices, GL_STATIC_DRAW);
 
 	// Generate the EBO (if it hasn't yet)
-	if (_ebo == -1)
+	if ((int)_ebo == -1)
 	{
 		glGenBuffers(1, &_ebo);
 	}
