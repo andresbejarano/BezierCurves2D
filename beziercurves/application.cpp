@@ -3,8 +3,13 @@
 #include "utils.h"
 #include "imgui_impl_glfw_gl3.h"
 #include <glm/gtc/matrix_transform.hpp>
+#ifdef Linux
+#include <IL/il.h>
+#include <IL/ilut.h>
+#else
 #include <IL\il.h>
 #include <IL\ilut.h>
+#endif
 #include <chrono>
 #include <ctime>
 #include <sstream>
@@ -312,7 +317,7 @@ void Application::DrawUI()
 		WriteFile();
 	}
 	ImGui::Separator();
-	ImGui::Text(mouseAtChar);
+	ImGui::TextUnformatted(mouseAtChar);
 	ImGui::End();
 
 	// Render the control panel 
@@ -512,8 +517,11 @@ void Application::SaveImage()
 		ILuint imageID = ilGenImage();
 		ilBindImage(imageID);
 
+#ifndef Linux
+                // FIXME : plain wrong on Linux, and save file does NOT work (but does not crash at least ...)
 		// Get the screen
 		ilutGLScreen();
+#endif
 
 		// Enable file overwrite
 		ilEnable(IL_FILE_OVERWRITE);
@@ -530,6 +538,8 @@ void Application::Subdivide(double t)
 {
 	// Get the pointer to the subdivided bezier curve
 	BezierCurve * half = _bezierCurves->at(_focusOnCurve)->Subdivide(t);
+
+        _bezierCurves->at(_focusOnCurve)->UpdateTicks(_nTicks);
 
 	// If NULL is returned then exit the function (nothing happened in the original curve)
 	if (half == NULL) 
@@ -552,6 +562,10 @@ void Application::Subdivide(double t)
 	_bezierCurves->at(nNewCurve)->Update((float)_tLeftDomain, (float)_tRightDomain, _nSegments);
 	_bezierCurves->at(nNewCurve)->UpdateDeCasteljau(_deCasteljauT);
 	_bezierCurves->at(nNewCurve)->UpdateSPoint(_sParameter, _sLeftDomain, _sRightDomain);
+
+	// See : https://github.com/andresbejarano/BezierCurves2D/issues/1
+	_bezierCurves->at(nNewCurve)->UpdateTicks(_nTicks);
+
 }
 
 void Application::Update()
@@ -811,12 +825,16 @@ void Application::WindowSizeCallback(GLFWwindow * window, int width, int height)
 
 int Application::Run(int argc, char ** argv)
 {
+
 	// Initialize glfw (exit if any error occur)
 	if (!glfwInit()) 
 	{
 		return -1;
 	}
-
+#ifdef Linux
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+#endif
 	// Get the static pointer to the instance of the application
 	std::shared_ptr<Application> app = Application::GetInstance();
 
