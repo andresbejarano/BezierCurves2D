@@ -27,14 +27,17 @@ public:
 	// The drawable lines representing the curve polygon
 	DrawableLines * _drawablePolygonLines;
 
-	// The drawable lines representing the DeCasteljau
-	DrawableLines * _drawableDeCasteljauLines;
-
 	// The drawable points representing the control points of the curve
 	DrawablePoints * _drawableControlPoints;
 
+	// The drawable lines representing the DeCasteljau
+	DrawableLines * _drawableDeCasteljauLines;
+
 	// The drawable points representing the DeCasteljau
 	DrawablePoints * _drawableDeCasteljauPoints;
+
+	// The t parameters used for defining the current DeCasteljau elements
+	double _deCasteljauT;
 
 	// The drawable point representing the last DeCasteljau point with parameter t
 	DrawablePoints * _drawableCurveTPoint;
@@ -47,9 +50,6 @@ public:
 
 	// The drawable polygon representing the convex hull of the curve
 	DrawablePolygon * _drawableConvexHull;
-
-	// The t parameters used for defining the current DeCasteljau elements
-	double _deCasteljauT;
 
 	// The last left parametric domain used for defining the curve
 	double _lastX;

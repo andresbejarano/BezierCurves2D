@@ -41,7 +41,7 @@ void DrawablePoints::DefineGeometry(std::vector<Point*>* points)
 	}
 
 	// Generate the VAO (if it hasn't yet)
-	if (_vao == -1)
+	if ((int)_vao == -1)
 	{
 		glGenVertexArrays(1, &_vao);
 	}
@@ -50,7 +50,7 @@ void DrawablePoints::DefineGeometry(std::vector<Point*>* points)
 	glBindVertexArray(_vao);
 
 	// Generate the VBO (if it hasn't yet)
-	if (_vbo == -1)
+	if ((int)_vbo == -1)
 	{
 		glGenBuffers(1, &_vbo);
 	}

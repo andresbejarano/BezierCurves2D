@@ -5,6 +5,7 @@
 
 #include "point.h"
 #include <vector>
+#include <iostream>
 
 namespace Utils 
 {

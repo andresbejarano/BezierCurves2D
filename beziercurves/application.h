@@ -3,8 +3,13 @@
 #ifndef _APPLICATION_H_
 #define _APPLICATION_H_
 
+#ifdef Linux
+#include <GL/gl3w.h>
+#include <GLFW/glfw3.h>
+#else
 #include <GL\gl3w.h>
 #include <GLFW\glfw3.h>
+#endif
 #include "imgui.h"
 #include "bezier_curve.h"
 #include "square.h"
@@ -117,14 +122,8 @@ public:
 	// The color for the curve ticks
 	ImVec4 _curveTicksColor;
 
-	// The vector containing the Bezier curves
-	std::vector<BezierCurve *> * _bezierCurves;
-
 	// The square for drawing the points
 	Square * _square;
-
-	// The indez of the Bezier curve to be updated
-	int _updateCurve;
 
 	// The value for the left parametric domain
 	float _tLeftDomain;
@@ -149,6 +148,12 @@ public:
 
 	// The number of segments for drawing the curves
 	int _nSegments;
+
+	// The vector containing the Bezier curves
+	std::vector<BezierCurve *> * _bezierCurves;
+
+	// The indez of the Bezier curve to be updated
+	int _updateCurve;
 
 	// A static reference to the instance of the application
 	static std::shared_ptr<Application> _staticInstance;
